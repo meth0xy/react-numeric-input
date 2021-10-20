@@ -407,7 +407,7 @@ class NumericInput extends Component
      *     2. Then trim it.
      *     3. Then parse it to number (delegating to this.props.parse if any)
      */
-    UNSAFE_componentWillReceiveProps(props: Object): void
+    static getDerivedStateFromProps(props: Object): void
     {
         this._isStrict = !!props.strict;
         let nextState = this._propsToState(props)
@@ -416,13 +416,15 @@ class NumericInput extends Component
             this.setState(nextState, () => {
                 this._ignoreValueChange = false
             })
+        } else {
+            return null;
         }
     }
 
     /**
      * Save the input selection right before rendering
      */
-    UNSAFE_componentWillUpdate(): void
+    shouldComponentUpdate(): void
     {
         this.saveSelection()
     }
