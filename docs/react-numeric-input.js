@@ -263,15 +263,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'getSnapshotBeforeUpdate',
+	        key: 'UNSAFE_componentWillReceiveProps',
+	        value: function UNSAFE_componentWillReceiveProps(props) {
+	            var _this2 = this;
 
+	            this._isStrict = !!props.strict;
+	            var nextState = this._propsToState(props);
+	            if (Object.keys(nextState).length) {
+	                this._ignoreValueChange = true;
+	                this.setState(nextState, function () {
+	                    _this2._ignoreValueChange = false;
+	                });
+	            }
+	        }
 
 	        /**
 	         * Save the input selection right before rendering
 	         */
-	        value: function getSnapshotBeforeUpdate() {
+
+	    }, {
+	        key: 'UNSAFE_componentWillUpdate',
+	        value: function UNSAFE_componentWillUpdate() {
 	            this.saveSelection();
-	            return null;
 	        }
 
 	        /**
@@ -330,16 +343,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            this._isMounted = true;
 	            this.refsInput.getValueAsNumber = function () {
-	                return _this2.state.value || 0;
+	                return _this3.state.value || 0;
 	            };
 
 	            this.refsInput.setValue = function (value) {
-	                _this2.setState({
-	                    value: _this2._parse(value),
+	                _this3.setState({
+	                    value: _this3._parse(value),
 	                    stringValue: value
 	                });
 	            };
@@ -603,7 +616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'increase',
 	        value: function increase() {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            var _recursive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -614,7 +627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _max = +access(this.props, "max", NumericInput.defaultProps.max, this);
 	            if (isNaN(this.state.value) || +this.state.value < _max) {
 	                this._timer = setTimeout(function () {
-	                    _this3.increase(true);
+	                    _this4.increase(true);
 	                }, _recursive ? NumericInput.SPEED : NumericInput.DELAY);
 	            }
 	        }
@@ -631,7 +644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'decrease',
 	        value: function decrease() {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            var _recursive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -642,7 +655,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var _min = +access(this.props, "min", NumericInput.defaultProps.min, this);
 	            if (isNaN(this.state.value) || +this.state.value > _min) {
 	                this._timer = setTimeout(function () {
-	                    _this4.decrease(true);
+	                    _this5.decrease(true);
 	                }, _recursive ? NumericInput.SPEED : NumericInput.DELAY);
 	            }
 	        }
@@ -716,7 +729,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            var props = this.props;
 	            var state = this.state;
@@ -766,7 +779,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    className: 'react-numeric-input',
 	                    ref: function ref(e) {
 	                        if (e != null && e != undefined) {
-	                            _this5.refsWrapper = e;
+	                            _this6.refsWrapper = e;
 	                        }
 	                    },
 	                    onMouseUp: undefined,
@@ -775,7 +788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                input: _extends({
 	                    ref: function ref(e) {
 	                        if (e != null && e != undefined) {
-	                            _this5.refsInput = e;
+	                            _this6.refsInput = e;
 	                        }
 	                    },
 	                    type: 'text',
@@ -855,19 +868,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    onTouchStart: this.onTouchStart.bind(this, 'up'),
 	                    onTouchEnd: this.onTouchEnd,
 	                    onMouseEnter: function onMouseEnter() {
-	                        _this5.setState({
+	                        _this6.setState({
 	                            btnUpHover: true
 	                        });
 	                    },
 	                    onMouseLeave: function onMouseLeave() {
-	                        _this5.stop();
-	                        _this5.setState({
+	                        _this6.stop();
+	                        _this6.setState({
 	                            btnUpHover: false,
 	                            btnUpActive: false
 	                        });
 	                    },
 	                    onMouseUp: function onMouseUp() {
-	                        _this5.setState({
+	                        _this6.setState({
 	                            btnUpHover: true,
 	                            btnUpActive: false
 	                        });
@@ -879,13 +892,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                        args[0].preventDefault();
 	                        args[0].persist();
-	                        _this5._inputFocus = true;
-	                        _this5.setState({
+	                        _this6._inputFocus = true;
+	                        _this6.setState({
 	                            btnUpHover: true,
 	                            btnUpActive: true
 	                        }, function () {
-	                            _this5._invokeEventCallback.apply(_this5, ["onFocus"].concat(args));
-	                            _this5.onMouseDown('up');
+	                            _this6._invokeEventCallback.apply(_this6, ["onFocus"].concat(args));
+	                            _this6.onMouseDown('up');
 	                        });
 	                    }
 	                });
@@ -894,19 +907,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    onTouchStart: this.onTouchStart.bind(this, 'down'),
 	                    onTouchEnd: this.onTouchEnd,
 	                    onMouseEnter: function onMouseEnter() {
-	                        _this5.setState({
+	                        _this6.setState({
 	                            btnDownHover: true
 	                        });
 	                    },
 	                    onMouseLeave: function onMouseLeave() {
-	                        _this5.stop();
-	                        _this5.setState({
+	                        _this6.stop();
+	                        _this6.setState({
 	                            btnDownHover: false,
 	                            btnDownActive: false
 	                        });
 	                    },
 	                    onMouseUp: function onMouseUp() {
-	                        _this5.setState({
+	                        _this6.setState({
 	                            btnDownHover: true,
 	                            btnDownActive: false
 	                        });
@@ -918,13 +931,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                        args[0].preventDefault();
 	                        args[0].persist();
-	                        _this5._inputFocus = true;
-	                        _this5.setState({
+	                        _this6._inputFocus = true;
+	                        _this6.setState({
 	                            btnDownHover: true,
 	                            btnDownActive: true
 	                        }, function () {
-	                            _this5._invokeEventCallback.apply(_this5, ["onFocus"].concat(args));
-	                            _this5.onMouseDown('down');
+	                            _this6._invokeEventCallback.apply(_this6, ["onFocus"].concat(args));
+	                            _this6.onMouseDown('down');
 	                        });
 	                    }
 	                });
@@ -932,12 +945,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _extends(attrs.input, {
 	                    onChange: function onChange(e) {
 	                        var original = e.target.value;
-	                        var val = _this5._parse(original);
+	                        var val = _this6._parse(original);
 	                        if (isNaN(val)) {
 	                            val = null;
 	                        }
-	                        _this5.setState({
-	                            value: _this5._isStrict ? _this5._toNumber(val) : val,
+	                        _this6.setState({
+	                            value: _this6._isStrict ? _this6._toNumber(val) : val,
 	                            stringValue: original
 	                        });
 	                    },
@@ -947,16 +960,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            args[_key7] = arguments[_key7];
 	                        }
 
-	                        _this5.saveSelection();
-	                        _this5._invokeEventCallback.apply(_this5, ["onInput"].concat(args));
+	                        _this6.saveSelection();
+	                        _this6._invokeEventCallback.apply(_this6, ["onInput"].concat(args));
 	                    },
 	                    onSelect: function onSelect() {
 	                        for (var _len8 = arguments.length, args = Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
 	                            args[_key8] = arguments[_key8];
 	                        }
 
-	                        _this5.saveSelection();
-	                        _this5._invokeEventCallback.apply(_this5, ["onSelect"].concat(args));
+	                        _this6.saveSelection();
+	                        _this6._invokeEventCallback.apply(_this6, ["onSelect"].concat(args));
 	                    },
 	                    onFocus: function onFocus() {
 	                        for (var _len9 = arguments.length, args = Array(_len9), _key9 = 0; _key9 < _len9; _key9++) {
@@ -964,13 +977,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 
 	                        args[0].persist();
-	                        _this5._inputFocus = true;
-	                        var val = _this5._parse(args[0].target.value);
-	                        _this5.setState({
+	                        _this6._inputFocus = true;
+	                        var val = _this6._parse(args[0].target.value);
+	                        _this6.setState({
 	                            value: val,
 	                            stringValue: val || val === 0 ? val + "" : ""
 	                        }, function () {
-	                            _this5._invokeEventCallback.apply(_this5, ["onFocus"].concat(args));
+	                            _this6._invokeEventCallback.apply(_this6, ["onFocus"].concat(args));
 	                        });
 	                    },
 	                    onBlur: function onBlur() {
@@ -978,16 +991,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            args[_key10] = arguments[_key10];
 	                        }
 
-	                        var _isStrict = _this5._isStrict;
-	                        _this5._isStrict = true;
+	                        var _isStrict = _this6._isStrict;
+	                        _this6._isStrict = true;
 	                        args[0].persist();
-	                        _this5._inputFocus = false;
-	                        var val = _this5._parse(args[0].target.value);
-	                        _this5.setState({
+	                        _this6._inputFocus = false;
+	                        var val = _this6._parse(args[0].target.value);
+	                        _this6.setState({
 	                            value: val
 	                        }, function () {
-	                            _this5._invokeEventCallback.apply(_this5, ["onBlur"].concat(args));
-	                            _this5._isStrict = _isStrict;
+	                            _this6._invokeEventCallback.apply(_this6, ["onBlur"].concat(args));
+	                            _this6._isStrict = _isStrict;
 	                        });
 	                    }
 	                });
@@ -1033,20 +1046,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _react2.default.createElement('i', { style: noStyle ? null : css.arrowDown })
 	                )
 	            );
-	        }
-	    }], [{
-	        key: 'getDerivedStateFromProps',
-	        value: function getDerivedStateFromProps(props) {
-	            var _this6 = this;
-
-	            this._isStrict = !!props.strict;
-	            var nextState = this._propsToState(props);
-	            if (Object.keys(nextState).length) {
-	                this._ignoreValueChange = true;
-	                this.setState(nextState, function () {
-	                    _this6._ignoreValueChange = false;
-	                });
-	            }
 	        }
 	    }]);
 
