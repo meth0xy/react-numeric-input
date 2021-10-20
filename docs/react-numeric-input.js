@@ -393,8 +393,8 @@
                  */
               },
               {
-                key: "componentWillUpdate",
-                value: function componentWillUpdate() {
+                key: "getSnapshotBeforeUpdate",
+                value: function getSnapshotBeforeUpdate() {
                   this.saveSelection();
                 },
 
