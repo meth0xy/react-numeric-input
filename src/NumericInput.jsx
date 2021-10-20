@@ -407,19 +407,19 @@ class NumericInput extends Component
      *     2. Then trim it.
      *     3. Then parse it to number (delegating to this.props.parse if any)
      */
-     shouldComponentUpdate(props: Object): void
+    componentDidUpdate(prevProps: Object ,props: Object): void
     {
-         this._isStrict = !!props.strict;
-         let nextState = this._propsToState(props)
-         if (Object.keys(nextState).length) {
-             this._ignoreValueChange = true
-             this.setState(nextState, () => {
-                 this._ignoreValueChange = false
-             })
-         } else {
-             return null;
-         }
-     }
+        if(prevProps.value !== this.props.value) {
+            this._isStrict = !!props.strict;
+            let nextState = this._propsToState(props)
+            if (Object.keys(nextState).length) {
+                this._ignoreValueChange = true
+                this.setState(nextState, () => {
+                    this._ignoreValueChange = false
+                })
+            }
+        }
+    }
 
     /**
      * Save the input selection right before rendering

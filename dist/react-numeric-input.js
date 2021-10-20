@@ -263,19 +263,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate(props) {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate(prevProps, props) {
 	            var _this2 = this;
 
-	            this._isStrict = !!props.strict;
-	            var nextState = this._propsToState(props);
-	            if (Object.keys(nextState).length) {
-	                this._ignoreValueChange = true;
-	                this.setState(nextState, function () {
-	                    _this2._ignoreValueChange = false;
-	                });
-	            } else {
-	                return null;
+	            if (prevProps.value !== this.props.value) {
+	                this._isStrict = !!props.strict;
+	                var nextState = this._propsToState(props);
+	                if (Object.keys(nextState).length) {
+	                    this._ignoreValueChange = true;
+	                    this.setState(nextState, function () {
+	                        _this2._ignoreValueChange = false;
+	                    });
+	                }
 	            }
 	        }
 
