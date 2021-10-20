@@ -1,6 +1,6 @@
 {
-  "name": "react-numeric-input",
-  "version": "2.2.3",
+  "name": "@methoxy/react-numeric-input",
+  "version": "1.0",
   "description": "Number input component that can replace the native number input which is not yet very well supported and where it is, it does not have the same appearance across the browsers. Additionally this component offers more flexible options and can be used for any values (differently formatted representations of the internal numeric value).",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vlad-ignatov/react-numeric-input.git"
+    "url": "git@github.com:meth0xy/react-numeric-input.git"
   },
   "keywords": [
     "react",
@@ -24,12 +24,12 @@
     "widget",
     "component"
   ],
-  "author": "Vladimir Ignatov",
+  "author": "Vladimir Ignatov, Meth0xy",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vlad-ignatov/react-numeric-input/issues"
   },
-  "homepage": "https://github.com/vlad-ignatov/react-numeric-input#readme",
+  "homepage": "https://github.com/meth0xy/react-numeric-input#readme",
   "devDependencies": {
     "babel": "^6.3.26",
     "babel-core": "^6.4.5",
