@@ -409,7 +409,6 @@ class NumericInput extends Component
      */
     static getDerivedStateFromProps(props: Object): void
     {
-        this._isStrict = !!props.strict;
         let nextState = this._propsToState(props)
         if (Object.keys(nextState).length) {
             this._ignoreValueChange = true

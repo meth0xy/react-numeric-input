@@ -760,7 +760,6 @@ module.exports =
 	        value: function getDerivedStateFromProps(props) {
 	            var _this6 = this;
 
-	            this._isStrict = !!props.strict;
 	            var nextState = this._propsToState(props);
 	            if (Object.keys(nextState).length) {
 	                this._ignoreValueChange = true;
